@@ -27,7 +27,7 @@ public class SearchService {
 
         List<RoomDetails> results = new ArrayList<>();
 
-        HashMap<String, Integer> inventory = inventoryService.getRoomInventory();
+        HashMap<String, Integer> inventory = inventoryService.getRoomCounts();
         HashMap<String, Double> prices = inventoryService.getRoomPrices();
 
         for (String roomType : inventory.keySet()) {

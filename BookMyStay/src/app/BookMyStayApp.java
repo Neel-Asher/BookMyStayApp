@@ -6,6 +6,7 @@ import manager.SearchManager;
 import manager.BookingManager;
 import service.SearchService;
 import service.BookingQueueService;
+import service.BookingService;
 
 /**
  * Main application class for BookMyStay.
@@ -13,7 +14,7 @@ import service.BookingQueueService;
  * room search, and booking queue operations.
  *
  * @author Neel
- * @version 3.0
+ * @version 4.0
  */
 public class BookMyStayApp {
 
@@ -27,11 +28,11 @@ public class BookMyStayApp {
         SearchManager searchManager =
                 new SearchManager(searchService);
 
-        BookingQueueService bookingQueueService =
-                new BookingQueueService();
+        BookingQueueService bookingQueueService = new BookingQueueService();
+        BookingService bookingService = new BookingService(bookingQueueService,inventoryManager.getInventoryService());
 
         BookingManager bookingManager =
-                new BookingManager(bookingQueueService);
+                new BookingManager(bookingQueueService, bookingService);
 
         Scanner scanner = new Scanner(System.in);
 
@@ -51,7 +52,8 @@ public class BookMyStayApp {
             System.out.println("5 Add Booking Request");
             System.out.println("6 Process Next Booking");
             System.out.println("7 View Booking Queue");
-            System.out.println("8 Exit");
+            System.out.println("8 View Confirmed Reservations");
+            System.out.println("9 Exit");
 
             System.out.print("Enter choice: ");
             choice = scanner.nextInt();
@@ -69,6 +71,7 @@ public class BookMyStayApp {
 
                     System.out.print("Enter new count: ");
                     int count = scanner.nextInt();
+                    scanner.nextLine();
 
                     inventoryManager.updateRoomCount(typeCount, count);
                     break;
@@ -79,6 +82,7 @@ public class BookMyStayApp {
 
                     System.out.print("Enter new price: ");
                     double price = scanner.nextDouble();
+                    scanner.nextLine();
 
                     inventoryManager.updateRoomPrice(typePrice, price);
                     break;
@@ -100,6 +104,10 @@ public class BookMyStayApp {
                     break;
 
                 case 8:
+                    bookingManager.showConfirmedReservations();
+                    break;
+
+                case 9:
                     System.out.println("Exiting BookMyStay...");
                     break;
 
@@ -107,7 +115,7 @@ public class BookMyStayApp {
                     System.out.println("Invalid choice.");
             }
 
-        } while (choice != 8);
+        } while (choice != 9);
 
         scanner.close();
     }

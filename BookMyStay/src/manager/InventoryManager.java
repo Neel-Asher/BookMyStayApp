@@ -44,7 +44,7 @@ public class InventoryManager {
 
     public void displayInventory() {
         InventoryPrinter.printInventory(
-                inventoryService.getRoomInventory(),
+                inventoryService.getRoomCounts(),
                 inventoryService.getRoomPrices()
         );
     }

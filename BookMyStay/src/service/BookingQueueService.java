@@ -1,7 +1,7 @@
 package service;
 
-import java.util.LinkedList;
 import java.util.Queue;
+import java.util.LinkedList;
 import model.Reservation;
 
 /**
@@ -10,7 +10,7 @@ import model.Reservation;
  * in the exact order they are received.
  *
  * @author Neel
- * @version 1.0
+ * @version 2.0
  */
 public class BookingQueueService {
 
@@ -28,17 +28,21 @@ public class BookingQueueService {
         System.out.println("Current queue size: " + bookingQueue.size());
     }
 
-    public void processNextBooking() {
+    public Reservation getNextBooking() {
 
         if (bookingQueue.isEmpty()) {
-            System.out.println("No booking requests to process.");
-            return;
+            return null;
         }
 
-        Reservation reservation = bookingQueue.poll();
+        return bookingQueue.poll();
+    }
 
-        System.out.println("Processing booking request:");
-        System.out.println(reservation);
+    public boolean isQueueEmpty() {
+        return bookingQueue.isEmpty();
+    }
+    
+    public Queue<Reservation> getQueue() {
+        return bookingQueue;
     }
 
     public void viewQueue() {

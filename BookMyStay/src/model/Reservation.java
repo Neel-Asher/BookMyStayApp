@@ -16,6 +16,7 @@ public class Reservation {
     private String roomType;
     private int nights;
     private LocalDateTime requestTime;
+    private String roomId;
 
     public Reservation(String guestName, String roomType, int nights) {
         this.guestName = guestName;
@@ -39,12 +40,21 @@ public class Reservation {
     public LocalDateTime getRequestTime() {
         return requestTime;
     }
+    
+    public void setRoomId(String roomId) {
+        this.roomId = roomId;
+    }
+
+    public String getRoomId() {
+        return roomId;
+    }
 
     @Override
     public String toString() {
         return "Guest: " + guestName +
                ", Room: " + roomType +
                ", Nights: " + nights +
-               ", Requested At: " + requestTime;
+               ", Requested At: " + requestTime +
+               ", Room ID: " + roomId;
     }
 }
