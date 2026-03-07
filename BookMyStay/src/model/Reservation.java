@@ -17,12 +17,14 @@ public class Reservation {
     private int nights;
     private LocalDateTime requestTime;
     private String roomId;
+    private String status;
 
     public Reservation(String guestName, String roomType, int nights) {
         this.guestName = guestName;
         this.roomType = roomType;
         this.nights = nights;
         this.requestTime = LocalDateTime.now();
+        this.status = "PENDING";
     }
 
     public String getGuestName() {
@@ -48,6 +50,14 @@ public class Reservation {
     public String getRoomId() {
         return roomId;
     }
+    
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     @Override
     public String toString() {
@@ -55,6 +65,7 @@ public class Reservation {
                ", Room: " + roomType +
                ", Nights: " + nights +
                ", Requested At: " + requestTime +
-               ", Room ID: " + roomId;
+               ", Room ID: " + roomId +
+               ", Status: " + status;
     }
 }

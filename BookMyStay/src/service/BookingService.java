@@ -11,12 +11,15 @@ public class BookingService {
 	private BookingQueueService bookingQueueService;
     private InventoryService inventoryService;
     private List<Reservation> confirmedReservations;
+    private BookingHistoryService bookingHistoryService;
 
     public BookingService(BookingQueueService bookingQueueService,
-            InventoryService inventoryService) {
+            InventoryService inventoryService,
+            BookingHistoryService bookingHistoryService) {
 
 		this.bookingQueueService = bookingQueueService;
 		this.inventoryService = inventoryService;
+		this.bookingHistoryService = bookingHistoryService;
 		this.confirmedReservations = new ArrayList<>();
 	}
 
@@ -32,13 +35,18 @@ public class BookingService {
         String roomId = inventoryService.allocateRoom(reservation.getRoomType());
 
         if(roomId != null) {
+
             reservation.setRoomId(roomId);
+            reservation.setStatus("CONFIRMED");
+
             confirmedReservations.add(reservation);
+
+            bookingHistoryService.addReservation(reservation);
 
             System.out.println("Reservation confirmed for "
                     + reservation.getGuestName()
                     + " | Room ID: " + roomId);
-        } 
+        }
         else {
             System.out.println("Room allocation failed for " + reservation.getGuestName());
         }
