@@ -1,7 +1,6 @@
 package service;
 
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * InventoryService maintains the core room inventory data.
@@ -22,8 +21,8 @@ import java.util.Map;
  */
 public class InventoryService {
 
-    private Map<String, Integer> roomInventory;
-    private Map<String, Double> roomPrices;
+    private HashMap<String, Integer> roomInventory;
+    private HashMap<String, Double> roomPrices;
 
     public InventoryService() {
         roomInventory = new HashMap<>();
@@ -54,12 +53,12 @@ public class InventoryService {
     public double getRoomPrice(String roomType) {
         return roomPrices.getOrDefault(roomType, 0.0);
     }
-
-    public Map<String, Integer> getInventory() {
+    
+    public HashMap<String, Integer> getRoomInventory() {
         return roomInventory;
     }
 
-    public Map<String, Double> getPrices() {
+    public HashMap<String, Double> getRoomPrices() {
         return roomPrices;
     }
 }
