@@ -3,16 +3,17 @@ package app;
 import java.util.Scanner;
 import manager.InventoryManager;
 import manager.SearchManager;
+import manager.BookingManager;
 import service.SearchService;
+import service.BookingQueueService;
 
 /**
- * Main application entry point for BookMyStay.
- * Demonstrates inventory management and
- * guest room searching functionality.
+ * Main application class for BookMyStay.
+ * Demonstrates inventory management,
+ * room search, and booking queue operations.
  *
  * @author Neel
- * @version 2.0
- * @since 2026
+ * @version 3.0
  */
 public class BookMyStayApp {
 
@@ -25,6 +26,12 @@ public class BookMyStayApp {
 
         SearchManager searchManager =
                 new SearchManager(searchService);
+
+        BookingQueueService bookingQueueService =
+                new BookingQueueService();
+
+        BookingManager bookingManager =
+                new BookingManager(bookingQueueService);
 
         Scanner scanner = new Scanner(System.in);
 
@@ -41,7 +48,10 @@ public class BookMyStayApp {
             System.out.println("2 Update Room Count");
             System.out.println("3 Update Room Price");
             System.out.println("4 Search Available Rooms");
-            System.out.println("5 Exit");
+            System.out.println("5 Add Booking Request");
+            System.out.println("6 Process Next Booking");
+            System.out.println("7 View Booking Queue");
+            System.out.println("8 Exit");
 
             System.out.print("Enter choice: ");
             choice = scanner.nextInt();
@@ -78,6 +88,18 @@ public class BookMyStayApp {
                     break;
 
                 case 5:
+                    bookingManager.createBookingRequest(scanner);
+                    break;
+
+                case 6:
+                    bookingManager.processNextRequest();
+                    break;
+
+                case 7:
+                    bookingManager.showQueue();
+                    break;
+
+                case 8:
                     System.out.println("Exiting BookMyStay...");
                     break;
 
@@ -85,7 +107,7 @@ public class BookMyStayApp {
                     System.out.println("Invalid choice.");
             }
 
-        } while (choice != 5);
+        } while (choice != 8);
 
         scanner.close();
     }
